@@ -38,29 +38,29 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LauncherActivity.class);
 
         SharedPreferences sp = getSharedPreferences("save", MODE_PRIVATE);
-        String targetTime = sp.getString("change", "");
-        String target2Time = sp.getString("reset", "");
+        String changeLogoTime = sp.getString("change", "");
+        String resetLogoTime = sp.getString("reset", "");
 
         Date nowDate = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String now = sdf.format(nowDate);
+        String currentTime = sdf.format(nowDate);
 
-        if (!TextUtils.isEmpty(targetTime) && !TextUtils.isEmpty(target2Time)) {
+        if (!TextUtils.isEmpty(changeLogoTime) && !TextUtils.isEmpty(resetLogoTime)) {
             PackageManager pm = getPackageManager();
-            if (now.compareTo(targetTime) >= 0 && now.compareTo(target2Time) <= 0) {
-                if (PackageManager.COMPONENT_ENABLED_STATE_DISABLED != pm.getComponentEnabledSetting(new ComponentName(getPackageName(), "com.example.dynamicdemo.SplashActivity"))) {
-                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, "com.example.dynamicdemo.SplashActivity"),
+            if (currentTime.compareTo(changeLogoTime) >= 0 && currentTime.compareTo(resetLogoTime) <= 0) {
+                if (PackageManager.COMPONENT_ENABLED_STATE_DISABLED != pm.getComponentEnabledSetting(new ComponentName(getPackageName(), SplashActivity.class.getName()))) {
+                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, SplashActivity.class.getName()),
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, "com.example.dynamicdemo.NewSplashActivity"),
+                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, NewSplashActivity.class.getName()),
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 }
-            } else if (now.compareTo(target2Time) >= 0) {
-                if (PackageManager.COMPONENT_ENABLED_STATE_DISABLED != pm.getComponentEnabledSetting(new ComponentName(getPackageName(), "com.example.dynamicdemo.NewSplashActivity"))) {
-                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, "com.example.dynamicdemo.NewSplashActivity"),
+            } else if (currentTime.compareTo(resetLogoTime) >= 0) {
+                if (PackageManager.COMPONENT_ENABLED_STATE_DISABLED != pm.getComponentEnabledSetting(new ComponentName(getPackageName(), NewSplashActivity.class.getName()))) {
+                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, NewSplashActivity.class.getName()),
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, "com.example.dynamicdemo.SplashActivity"),
+                    pm.setComponentEnabledSetting(new ComponentName(SplashActivity.this, SplashActivity.class.getName()),
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

@@ -112,12 +112,7 @@ public class GuideUtils {
                 .setLayout(layout, new DecorateInflate() {
                     @Override
                     public void onInflate(final GuideView guideView, View inflaterView) {
-                        inflaterView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                guideView.dismiss();
-                            }
-                        });
+                        inflaterView.setOnClickListener(v -> guideView.dismiss());
                     }
                 })
                 .build()
@@ -136,17 +131,8 @@ public class GuideUtils {
                 .setPadding(5, 5, 5, 5)
                 .setRadius(15)
                 .setRelyActivity((Activity) context)
-                .setLayout(layout, new DecorateInflate() {
-                    @Override
-                    public void onInflate(final GuideView guideView, View inflaterView) {
-                        inflaterView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                guideView.dismiss();
-                            }
-                        });
-                    }
-                })
+                .setLayout(layout, (guideView, inflaterView) ->
+                        inflaterView.setOnClickListener(v -> guideView.dismiss()))
                 .build()
                 .show();
     }

@@ -44,13 +44,7 @@ public class LauncherActivity extends AppCompatActivity {
             preloadBanner(urls.get(i));
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(LauncherActivity.this, GuideActivity.class).putStringArrayListExtra("urls", urls));
-            }
-        },2000);
-
+        new Handler().postDelayed(() -> startActivity(new Intent(LauncherActivity.this, GuideActivity.class).putStringArrayListExtra("urls", urls)),2000);
     }
 
     @Override

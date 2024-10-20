@@ -29,14 +29,11 @@ public class MainActivity extends AppCompatActivity {
         et4.setText(getFormatDate());
         et5.setText(getFormatDate());
 
-        findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences sp = getSharedPreferences("save", MODE_PRIVATE);
-                sp.edit().putString("change", et4.getText().toString().trim()).apply();
-                sp.edit().putString("reset", et5.getText().toString().trim()).apply();
-                Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-            }
+        findViewById(R.id.btn3).setOnClickListener(view -> {
+            SharedPreferences sp = getSharedPreferences("save", MODE_PRIVATE);
+            sp.edit().putString("change", et4.getText().toString().trim()).apply();
+            sp.edit().putString("reset", et5.getText().toString().trim()).apply();
+            Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
         });
 
     }

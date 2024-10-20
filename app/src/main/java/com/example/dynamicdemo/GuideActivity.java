@@ -29,7 +29,6 @@ public class GuideActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         setListener();
         processLogic();
@@ -39,7 +38,6 @@ public class GuideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guide);
         mForegroundBanner = findViewById(R.id.banner_guide_foreground);
         mBackgroundBanner = findViewById(R.id.banner_guide_background);
-
     }
 
     private void setListener() {
@@ -49,32 +47,21 @@ public class GuideActivity extends AppCompatActivity {
          * 在 BGABanner 里已经帮开发者处理了防止重复点击事件
          * 在 BGABanner 里已经帮开发者处理了「跳过按钮」和「进入按钮」的显示与隐藏
          */
-        mForegroundBanner.setEnterSkipViewIdAndDelegate(R.id.btn_guide_enter, R.id.tv_guide_skip, new BGABanner.GuideDelegate() {
-            @Override
-            public void onClickEnterOrSkip() {
-                startActivity(new Intent(GuideActivity.this,MainActivity.class));
-            }
-        });
+        mForegroundBanner.setEnterSkipViewIdAndDelegate(R.id.btn_guide_enter, R.id.tv_guide_skip, () ->
+                startActivity(new Intent(GuideActivity.this, MainActivity.class)));
     }
 
     private void processLogic() {
         List<String> caches = getIntent().getStringArrayListExtra("urls");
-        if (caches != null && caches.size() > 0) {
-            mForegroundBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
-                @Override
-                public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+        if (caches != null && !caches.isEmpty()) {
+            mForegroundBanner.setAdapter((BGABanner.Adapter<ImageView, String>) (banner, itemView, model, position) ->
                     Glide.with(GuideActivity.this)
                             .load(model)
                             .diskCacheStrategy(DiskCacheStrategy.DATA)
                             .apply(new RequestOptions().fitCenter())
-                            .into(itemView);
-                }
-            });
+                            .into(itemView));
             mForegroundBanner.setData(caches, null);
-
         }
-
-
     }
 
     @Override
