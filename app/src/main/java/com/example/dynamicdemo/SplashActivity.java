@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         String resetLogoTime = sp.getString("reset", "");
 
         Date nowDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         String currentTime = sdf.format(nowDate);
 
         if (!TextUtils.isEmpty(changeLogoTime) && !TextUtils.isEmpty(resetLogoTime)) {
